@@ -117,7 +117,7 @@ const test = [];
 const uniquePlace = [];
 const uniqueDate = [];
 let avgSales = [];
-let myChart1 = null;
+let myaveragevalue = null;
 let arr = [true, true, true, true]
 let arrCategory = [true, true, true, true]
 
@@ -156,13 +156,13 @@ function chartCategory() {
     categorySalesTemp[selected_category[i]] = categorySales[selected_category[i]]
   }
 
-  // updateChart2()
-  updateChart3(categorySalesTemp)
-  updateChart5(selected_category)
+  // updatepaymenttype()
+  updatesalescategory(categorySalesTemp)
+  updatesellingcategory(selected_category)
 }
 
-function updateChart5(selected_category) {
-  myChart5.destroy()
+function updatesellingcategory(selected_category) {
+  mysellingcategory.destroy()
   let data = {
     labels: uniquePlace,
     datasets: []
@@ -188,11 +188,11 @@ function updateChart5(selected_category) {
     "y"
   );
 
-  myChart5 = new Chart(document.getElementById("chart5"), config);
+  mysellingcategory = new Chart(document.getElementById("sellingcategory"), config);
 
 }
-function updateChart3(catSales){
-  myChart3.destroy()
+function updatesalescategory(catSales){
+  mysalescategory.destroy()
   const data = {
     labels: category,
     datasets: [
@@ -216,7 +216,7 @@ function updateChart3(catSales){
     false,
     "x"
   );
-  myChart3 = new Chart(document.getElementById("chart3"), config);
+  mysalescategory = new Chart(document.getElementById("salescategory"), config);
 
 }
 function selectedCheckbox(idx) {
@@ -231,18 +231,18 @@ function selectedCheckbox(idx) {
       selected_category.push(new_cat[i])
     }
   }
-  updateChart2(selected_category)
-  updateChart4(selected_category)
+  updatepaymenttype(selected_category)
+  updatepeaksales(selected_category)
 }
 
-function updateChart2(selected_category) {
+function updatepaymenttype(selected_category) {
   newCash = {}
   newCredit = {}
   for (let i = 0; i < selected_category.length; i++) {
     newCash[selected_category[i]] =  cashSalesFromMachine[selected_category[i]];
     newCredit[selected_category[i]]=  creditSalesFromMachine[selected_category[i]];
   }
-  myChart2.destroy()
+  mypaymenttype.destroy()
   
   const data = {
     labels: uniquePlace,
@@ -274,11 +274,11 @@ function updateChart2(selected_category) {
     false,
     "x"
   );
-  myChart2 = new Chart(document.getElementById("chart2"), config);
+  mypaymenttype = new Chart(document.getElementById("paymenttype"), config);
 }
 
-function updateChart4(selected_category) {
-  myChart4.destroy()
+function updatepeaksales(selected_category) {
+  mypeaksales.destroy()
   const data = {
     labels: uniqueDate
   }
@@ -305,11 +305,11 @@ function updateChart4(selected_category) {
     false,
     "x"
   );
-  myChart4 = new Chart(document.getElementById("chart4"), config);
+  mypeaksales = new Chart(document.getElementById("peaksales"), config);
 }
 
 function chart() {
-  myChart1.destroy()
+  myaveragevalue.destroy()
   avgSales = []
   uniquePlace.forEach((element, idx) => {
     var avg = totalSaleFromMachine[element] / totalTransactionsFromMachine[element];
@@ -338,7 +338,7 @@ function chart() {
     "x"
   );
 
-  myChart1 = new Chart(document.getElementById("chart1"), configCharrt);
+  myaveragevalue = new Chart(document.getElementById("averagevalue"), configCharrt);
 }
 
 categorySales["Carbonated"] = parseFloat(0);
@@ -437,7 +437,7 @@ fetch("./data/Pivot_Table.json")
       avgSales.push(number);
     });
 
-    const dataChart1 = {
+    const dataaveragevalue = {
       labels: uniquePlace,
       datasets: [
         {
@@ -449,7 +449,7 @@ fetch("./data/Pivot_Table.json")
       ],
     };
 
-    const dataChart2 = {
+    const datapaymenttype = {
       labels: uniquePlace,
       datasets: [
         {
@@ -469,7 +469,7 @@ fetch("./data/Pivot_Table.json")
       ],
     };
 
-    const dataChart3 = {
+    const datasalescategory = {
       labels: category,
       datasets: [
         {
@@ -482,7 +482,7 @@ fetch("./data/Pivot_Table.json")
       ],
     };
 
-    const dataChart4 = {
+    const datapeaksales = {
       labels: uniqueDate,
       datasets: [
         {
@@ -516,7 +516,7 @@ fetch("./data/Pivot_Table.json")
       ],
     };
 
-    const dataChart5 = {
+    const datasellingcategory = {
       labels: uniquePlace,
       datasets: [
         {
@@ -550,9 +550,9 @@ fetch("./data/Pivot_Table.json")
       ],
     };
 
-    const configChart1 = returnOptions(
+    const configaveragevalue = returnOptions(
       "line",
-      dataChart1,
+      dataaveragevalue,
       "Average Value of Transaction",
       "Location",
       "Avg Transaction",
@@ -560,9 +560,9 @@ fetch("./data/Pivot_Table.json")
       false,
       "x"
     );
-    const configChart2 = returnOptions(
+    const configpaymenttype = returnOptions(
       "bar",
-      dataChart2,
+      datapaymenttype,
       "Payment Type in each Machine",
       "Location",
       "Total Transaction",
@@ -570,9 +570,9 @@ fetch("./data/Pivot_Table.json")
       false,
       "x"
     );
-    const configChart3 = returnOptions(
+    const configsalescategory = returnOptions(
       "bar",
-      dataChart3,
+      datasalescategory,
       "Sales in each Category",
       "Category",
       "Total Sales",
@@ -580,9 +580,9 @@ fetch("./data/Pivot_Table.json")
       false,
       "x"
     );
-    const configChart4 = returnOptions(
+    const configpeaksales = returnOptions(
       "bar",
-      dataChart4,
+      datapeaksales,
       "Peak Sales Date",
       "Transaction Date",
       "Transaction Count",
@@ -590,9 +590,9 @@ fetch("./data/Pivot_Table.json")
       false,
       "x"
     );
-    const configChart5 = returnOptions(
+    const configsellingcategory = returnOptions(
       "bar",
-      dataChart5,
+      datasellingcategory,
       "Top Selling Category Across Machine",
       "Category",
       "Location",
@@ -601,15 +601,15 @@ fetch("./data/Pivot_Table.json")
       "y"
     );
 
-    myChart1 = new Chart(document.getElementById("chart1"), configChart1);
+    myaveragevalue = new Chart(document.getElementById("averagevalue"), configaveragevalue);
 
-    myChart2 = new Chart(document.getElementById("chart2"), configChart2);
+    mypaymenttype = new Chart(document.getElementById("paymenttype"), configpaymenttype);
 
-    myChart3 = new Chart(document.getElementById("chart3"), configChart3);
+    mysalescategory = new Chart(document.getElementById("salescategory"), configsalescategory);
 
-    myChart4 = new Chart(document.getElementById("chart4"), configChart4);
+    mypeaksales = new Chart(document.getElementById("peaksales"), configpeaksales);
 
-    myChart5 = new Chart(document.getElementById("chart5"), configChart5);
+    mysellingcategory = new Chart(document.getElementById("sellingcategory"), configsellingcategory);
 
     const chartVersion = document.getElementById("chartVersion");
     chartVersion.innerText = Chart.version;
