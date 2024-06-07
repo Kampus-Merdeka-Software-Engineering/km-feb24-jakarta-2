@@ -634,7 +634,6 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 
-//coba1
 document.addEventListener("DOMContentLoaded", function() {
   var dropdownBtns = document.getElementsByClassName("dropdown-btn");
   var dropdownContents = document.getElementsByClassName("dropdown-content");
@@ -677,7 +676,6 @@ document.getElementById("feedbackBtn").addEventListener("click", function() {
   feedbackForm.style.display = "block";
 });
 
-//sini
 
 document.getElementById('feedbackBtn').addEventListener('click', function () {
   var feedbackForm = document.getElementById('feedbackForm');
@@ -721,15 +719,9 @@ function sendMail(feedbackText) {
 
   emailjs.send(serviceID, templateID, params)
     .then(res => {
-      alert("Email sent successfully!");
       document.getElementById("feedbackForm").style.display = 'none';
       document.getElementById("feedbackText").value = '';
-    })
-    .catch(err => {
-      console.error("Failed to send email:", err);
-      alert("Failed to send email. Please try again later.");
-    });
-}
+    })};
 
 
 
