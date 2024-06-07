@@ -685,6 +685,10 @@ document.getElementById('feedbackBtn').addEventListener('click', function () {
   document.getElementById('feedbackText').value = ''; // Reset the form when the feedback button is clicked
 });
 
+(function() {
+  emailjs.init("0bfMej1wdYwAoWHx8");
+})();
+
 document.getElementById('sendFeedbackBtn').addEventListener('click', function () {
   var feedbackText = document.getElementById('feedbackText').value;
   var notification = document.getElementById('notification');
@@ -700,9 +704,32 @@ document.getElementById('sendFeedbackBtn').addEventListener('click', function ()
   } else {
     notification.innerText = 'Thank you for your feedback!';
     notification.style.color = 'green';
-    document.getElementById('feedbackText').value = ''; // Reset the feedback text area
+
+    // Send the feedback via email
+    sendMail(feedbackText);
   }
 });
+
+function sendMail(feedbackText) {
+  let params = {
+    feedbackText: feedbackText
+  };
+  console.log("Params to be sent:", params);
+
+  let serviceID = "service_dqwvzfe"; // Email Service ID
+  let templateID = "template_ry43oor"; // Email Template ID
+
+  emailjs.send(serviceID, templateID, params)
+    .then(res => {
+      alert("Email sent successfully!");
+      document.getElementById("feedbackForm").style.display = 'none';
+      document.getElementById("feedbackText").value = '';
+    })
+    .catch(err => {
+      console.error("Failed to send email:", err);
+      alert("Failed to send email. Please try again later.");
+    });
+}
 
 
 
@@ -716,3 +743,4 @@ document.addEventListener("click", function(event) {
     feedbackForm.style.display = "none";
   }
 });
+
