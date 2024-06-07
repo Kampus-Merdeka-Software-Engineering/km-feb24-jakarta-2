@@ -293,7 +293,6 @@ function updatepeaksales(selected_category) {
     ds.push(obj)
   }
   data.datasets = ds
-  console.log('ds:', data)
 
   const  config = returnOptions(
     "bar",
@@ -613,9 +612,6 @@ fetch("./data/Pivot_Table.json")
 
     const chartVersion = document.getElementById("chartVersion");
     chartVersion.innerText = Chart.version;
-  })
-  .catch((error) => {
-    console.error("Error fetching data:", error);
   });
 
 
@@ -712,7 +708,6 @@ function sendMail(feedbackText) {
   let params = {
     feedbackText: feedbackText
   };
-  console.log("Params to be sent:", params);
 
   let serviceID = "service_dqwvzfe"; // Email Service ID
   let templateID = "template_ry43oor"; // Email Template ID
